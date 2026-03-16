@@ -18,6 +18,6 @@ class LeeBookController extends Controller
     }
 
     public function aboutpage() {
-        return '<h1>LeeBook - About Page (Controller)</h1><a href="\">Back To Home</a>';
+        return view('single-post');
     }
 }
