@@ -10,6 +10,15 @@
     <p>A great number is {{ 2 + 2 }}</p>
     <p>The current year is {{ date('Y') }}</p>
 
+    <h3>My name: {{ $name }}</h3>
+    <h3>Cat's name: {{ $catname }}</h3>
+
+    <ul>
+        @foreach($allAnimals as $animal)
+        <li>{{ $animal }}</li>
+        @endforeach
+    </ul>
+
     <a href="/about">Go to the about page</a>
 </body>
 </html>

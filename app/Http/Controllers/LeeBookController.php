@@ -1,5 +1,7 @@
 <?php
 
+// when a request comes in, the controller essentially acts as a manager, delegating tasks to the other pages
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,7 +9,12 @@ use Illuminate\Http\Request;
 class LeeBookController extends Controller
 {
     public function homepage() {
-        return view('homepage');
+        // image we are loading data from a database
+
+        $ourName = 'Lee'; // the controller passes dynamic data to the view; the view's only resposibility is displaying the data and view
+        $animals =['Meowsalot', 'Barksalot', 'Purrsloud'];
+
+        return view('homepage', ['allAnimals' => $animals, 'name' => $ourName, 'catname' => 'Meowsalot']); // in this case, delegating the task to the view 'homepage'
     }
 
     public function aboutpage() {
