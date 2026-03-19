@@ -2,6 +2,8 @@
 
 // when a request comes in, the controller essentially acts as a manager, delegating tasks to the other pages
 
+// nothing in here is used in this app, and I have just kept it around for demonstration purposes
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

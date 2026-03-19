@@ -8,6 +8,11 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function logout() {
+        auth()->logout();
+        return redirect('/')->with('success', 'You are now logged out!');
+    }
+
     public function showCorrectHomepage() {
         if (auth()->check()) {
             return view('homepage-feed');
@@ -24,9 +29,9 @@ class UserController extends Controller
 
         if (auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) {
             $request->session()->regenerate();
-            return 'Congrats!!!';
+            return redirect('/')->with('success', 'You have successfully logged in!');
         } else {
-            return 'Sorry';
+            return redireCt('/')->with('failure', 'Invalid login.');
         }
     }
 
@@ -36,7 +41,9 @@ class UserController extends Controller
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'min:8', 'confirmed']
         ]);
-        User::create($incomingFields);
-        return 'User information saved!';
+
+        $user = User::create($incomingFields);
+        auth()->login($user); // automatically logs in a new user when an account is created
+        return redirect('/')->with('success', 'Thank you for creating an account!');
     }
 }
