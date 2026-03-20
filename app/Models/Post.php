@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = ['title', 'body', 'user_id'];
+
+    public function user() { // passes the username to blog posts via the user ID
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

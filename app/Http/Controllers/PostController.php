@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function viewSinglePost(Post $post) { // an example of type hinting
+        return view('single-post', ['post' => $post]);
+    }
+
     public function storeNewPost(Request $request) {
         $incomingFields = $request->validate([
             'title' => 'required',
@@ -17,7 +21,9 @@ class PostController extends Controller
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['user_id'] = auth()->id(); // gets the dynamic user id value that is logged in to that particular session
 
-        Post::create($incomingFields);
+        $newPost = Post::create($incomingFields);
+
+        return redirect("/post/{$newPost->id}")->with('success', 'New post successfully created!');
     }
 
     public function showCreateForm() {
