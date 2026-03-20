@@ -16,7 +16,7 @@
       </p>
 
       <div class="body-content">
-        {{$post->body}}
+        {!! $post->body !!} {{-- tells Blade to render this as HTML as it normally wouldn't do that as a security feature (SHOULD BE USED CAREFULLY) --}}
       </div>
     </div>
 </x-layout>
