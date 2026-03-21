@@ -8,6 +8,15 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    public function delete(Post $post) {
+        if (auth()->user()->cannot('delete', $post)) {
+            return 'You cannot delete this post as you are not the author.';
+        }
+        $post->delete();
+
+        return redirect('/profile/' . auth()->user()->username)->with('success', 'Post successfully deleted.');
+    }
+
     public function viewSinglePost(Post $post) { // an example of type hinting
         $post['body'] = strip_tags(Str::markdown($post->body), '<p><ul><ol><li><strong><em><br>'); // strips tags but allows a list of allowable HTML tags
         return view('single-post', ['post' => $post]);
