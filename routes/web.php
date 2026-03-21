@@ -18,3 +18,6 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth'); /
 Route::get('/create-post', [PostController::class, 'showCreateForm'])->middleware('auth'); // middleware ('auth') runs before the actual function to make sure that a user is logged in and sends them to the login page if no-one is logged in - see above
 Route::post('/create-post', [PostController::class, 'storeNewPost'])->middleware('auth');
 Route::get('/post/{post}', [PostController::class, 'viewSinglePost']);
+
+// Profile related routes
+Route::get('/profile/{user:username}', [UserController::class, 'profile']);
