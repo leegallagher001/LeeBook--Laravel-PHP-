@@ -4,7 +4,7 @@
         <h2>{{$post->title}}</h2>
         @can('update', $post) {{-- Should only show edit or delete buttons if post is being viewed by the post's author --}}
         <span class="pt-2">
-          <a href="#" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
+          <a href="/post/{{$post->id}}/edit" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
           <form class="delete-post-form d-inline" action="/post/{{$post->id}}" method="POST">
             @csrf {{-- issues a CSRF token for the delete request --}}
             @method('DELETE') {{-- Fulfils the delete request --}}
