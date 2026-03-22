@@ -37,6 +37,9 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
+        if ($user->isAdmin === 1) { // checks if user is an admin (would bypass restrictions on editing or deleting posts)
+            return true;
+        }
         return $user->id === $post->user_id; // checks if user ID logged in matches the user ID that made (owns) the post
     }
 
@@ -45,6 +48,9 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
+        if ($user->isAdmin === 1) { // checks if user is an admin (would bypass restrictions on editing or deleting posts)
+            return true;
+        }
         return $user->id === $post->user_id; // same as above
     }
 
