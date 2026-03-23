@@ -4,6 +4,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route; // 'Route' is a default class of Laravel
 
+
+// Admin pages gate
+Route::get('/admins-only', function() {
+    return 'Only admins should be able to see this page.';
+})->middleware('can:visitAdminPages'); // ties back to the AppServiceProvider.php file
+
 // User login and logout routes
 
 // middleware('guest') - makes sure that someone ISN'T logged IN before executing function
