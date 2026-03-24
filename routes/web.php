@@ -19,8 +19,8 @@ Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login'); 
 Route::post('/register', [UserController::class, 'register'])->middleware('guest'); // register HTML sign-up form
 Route::post('/login', [UserController::class, 'login'])->middleware('guest'); // login
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth'); // logout
-Route::get('/manage-avatar', [UserController::class, 'showAvatarForm']);
-Route::post('/manage-avatar', [UserController::class, 'storeAvatar']);
+Route::get('/manage-avatar', [UserController::class, 'showAvatarForm'])->middleware('auth');
+Route::post('/manage-avatar', [UserController::class, 'storeAvatar'])->middleware('auth');
 
 // Blog post routes
 Route::get('/create-post', [PostController::class, 'showCreateForm'])->middleware('auth'); // middleware ('auth') runs before the actual function to make sure that a user is logged in and sends them to the login page if no-one is logged in - see above
