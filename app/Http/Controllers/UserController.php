@@ -8,6 +8,14 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function storeAvatar(Request $request) {
+        $request->file('avatar')->store('avatars', 'public'); // saves pfp in avatars folder within public folder
+    }
+
+    public function showAvatarForm() {
+        return view('avatar-form');
+    }
+
     public function profile(User $user) { // returns the profile posts associated with the user logged in as well as the number of posts that they have in total
         return view('profile-posts', ['username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
     }
