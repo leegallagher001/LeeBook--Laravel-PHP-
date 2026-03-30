@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route; // 'Route' is a default class of Laravel
@@ -21,6 +22,10 @@ Route::post('/login', [UserController::class, 'login'])->middleware('guest'); //
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth'); // logout
 Route::get('/manage-avatar', [UserController::class, 'showAvatarForm'])->middleware('auth');
 Route::post('/manage-avatar', [UserController::class, 'storeAvatar'])->middleware('auth');
+
+// Follow related routes
+Route::post('/create-follow/{user:username}', [FollowController::class, 'createFollow'])->middleware('auth');
+Route::post('/remove-follow/{user:username}', [FollowController::class, 'removeFollow'])->middleware('auth');
 
 // Blog post routes
 Route::get('/create-post', [PostController::class, 'showCreateForm'])->middleware('auth'); // middleware ('auth') runs before the actual function to make sure that a user is logged in and sends them to the login page if no-one is logged in - see above
