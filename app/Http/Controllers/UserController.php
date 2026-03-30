@@ -24,6 +24,17 @@ class UserController extends Controller
         $image = $manager->read($request->file('avatar'));
         $imgData = $image->cover(120, 120)->toJpeg();
         Storage::disk('public')->put('avatars/' . $filename, $imgData);
+
+        $oldAvatar = $user->avatar;
+
+        $user->avatar = $filename;
+        $user->save();
+
+        if ($oldAvatar != '/fallback-avatar.jpg') {
+            Storage::disk('public')->delete(str_replace('/storage/', '', $oldAvatar));
+        }
+
+        return back()->with('success', 'Nice photo! Congrats on the new avatar!');
     }
 
     public function showAvatarForm() {
@@ -31,7 +42,7 @@ class UserController extends Controller
     }
 
     public function profile(User $user) { // returns the profile posts associated with the user logged in as well as the number of posts that they have in total
-        return view('profile-posts', ['username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
+        return view('profile-posts', ['avatar' => $user->avatar, 'username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
     }
 
     public function logout() {
